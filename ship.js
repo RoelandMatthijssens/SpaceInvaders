@@ -3,6 +3,13 @@ function Ship(x, y, size){
     this.y = y;
     this.speed = 0.5;
     this.size = size;
+    this.leftBoundary = 0;
+    this.rightBoundary;
+
+    this.setBoundaries = function setBoundaries(left, right){
+        this.leftBoundary = left;
+        this.rightBoundary = right;
+    };
 
     this.show = function(){
         stroke(255);
@@ -20,6 +27,12 @@ function Ship(x, y, size){
             this.x -= speed;
         } else if(direction === RIGHT){
             this.x += speed;
+        }
+        if(this.x < this.leftBoundary){
+            this.x = this.leftBoundary;
+        }
+        if(this.x > this.rightBoundary){
+            this.x = this.rightBoundary;
         }
     };
 
