@@ -1,19 +1,16 @@
-var ship;
-var aliens = []
-
+var world;
 function setup() {
-    createCanvas(500, 500);
-    ship = new Ship(50, 50, 30);
-    aliens.push(new Alien(100, 50, 15));
+    var height = 500;
+    var width = 500;
+    createCanvas(height, width);
+    world = new World(height, width, 20);
+    ship = world.createShip();
+    world.populateAliens(10);
 }
 
 function draw() {
     background(51);
-    ship.show();
-    for(var index in aliens){
-        var alien = alien[index];
-        alien.show();
-    }
+    world.show();
 }
 
 function keyPressed(){
