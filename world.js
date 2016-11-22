@@ -21,24 +21,15 @@ function World(height, width, scl){
     };
 
     this.show = function(){
-        this.bullets = this.bullets.filter(function(i){return !i.toDelete});
-        for(var index in this.aliens){
-            var alien = this.aliens[index];
-            alien.show();
-        }
-        for(var index in this.bullets) {
-            var bullet = this.bullets[index];
-            bullet.show();
-            bullet.move();
-            if(bullet.outOfBound(this.height, this.width)){
-                bullet.delete();
-            }
-            var colidedAliens = bullet.checkCollision(this.aliens);
-            if(colidedAliens.length > 0){
-                bullet.delete();
-                console.log("hit", colidedAliens);
-            }
-        }
+        var self = this;
+        this.removeDeletedEntities();
+        this.aliens.map(function(i){i.show()});
+        this.bullets.map(function(i){i.update(self)});
         this.ship.show();
     };
+
+    this.removeDeletedEntities = function removeDeletedEntities(){
+        this.bullets = this.bullets.filter(function(i){return !i.toDelete});
+        this.aliens = this.aliens.filter(function(i){return !i.toDelete});
+    }
 }

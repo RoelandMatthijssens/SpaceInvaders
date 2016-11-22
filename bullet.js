@@ -27,12 +27,29 @@ function Bullet(x, y, size){
         })
     };
 
-    this.outOfBound = function outOfBound(width, height){
-        return this.x > width || this.x < 0 || this.y > width || this.y < 0
+    this.deleteIfOutOfBound = function deleteIfOutOfBound(width, height){
+        if(this.x > width || this.x < 0 || this.y > width || this.y < 0)
+            this.delete();
     };
 
     this.delete = function del(){
-        console.log('deleted');
         this.toDelete = true;
     };
-};
+
+    this.destroyAliens = function destroyAliens(aliens) {
+        var colidedAliens = this.checkCollision(aliens);
+        if (colidedAliens.length > 0) {
+            this.delete();
+            for (var index in colidedAliens) {
+                colidedAliens[index].delete();
+            }
+        }
+    };
+
+    this.update = function update(world){
+        this.show();
+        this.move();
+        this.deleteIfOutOfBound(world.height, world.width)
+        this.destroyAliens(world.aliens);
+    };
+}
