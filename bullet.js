@@ -15,4 +15,14 @@ function Bullet(x, y, size){
         this.x += this.xspeed;
         this.y += this.yspeed;
     };
+
+    this.checkCollision = function checkCollision(aliens){
+        var self = this;
+        return aliens.filter(function (alien) {
+            return collideRectCircle(
+                alien.x, alien.y, alien.size, alien.size,
+                self.x, self.y, self.size
+            );
+        })
+    };
 }

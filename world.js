@@ -33,6 +33,10 @@ function World(height, width, scl){
             if (bullet.x > this.width || bullet.x < 0 || bullet.y > this.width || bullet.y < 0) {
                 this.bullets.splice(index, 1);
             }
+            var colidedAliens = bullet.checkCollision(this.aliens);
+            if(colidedAliens.length > 0){
+                console.log("hit", colidedAliens);
+            }
         }
         this.ship.show();
     };

@@ -6,6 +6,7 @@ function setup() {
     world = new World(height, width, 20);
     ship = world.createShip();
     world.populateAliens(10);
+    frameRate(60);
 }
 
 function draw() {
