@@ -3,6 +3,7 @@ function World(height, width, scl){
     this.width = width;
     this.scl = scl;
     this.aliens = [];
+    this.bullets = [];
 
     this.populateAliens = function populateAliens(amount){
         var offset = 0;
@@ -23,6 +24,15 @@ function World(height, width, scl){
         for(var index in this.aliens){
             var alien = this.aliens[index];
             alien.show();
+        }
+        for(var index in this.bullets) {
+            var bullet = this.bullets[index];
+            bullet.show();
+            bullet.move();
+            //remove the bullet from the world if it goes out of bound
+            if (bullet.x > this.width || bullet.x < 0 || bullet.y > this.width || bullet.y < 0) {
+                this.bullets.splice(index, 1);
+            }
         }
         this.ship.show();
     };

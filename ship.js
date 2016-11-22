@@ -21,5 +21,9 @@ function Ship(x, y, size){
         } else if(direction === RIGHT){
             this.x += speed;
         }
+    };
+
+    this.shoot = function shoot(){
+        return new Bullet(this.x, this.y, this.size);
     }
 }

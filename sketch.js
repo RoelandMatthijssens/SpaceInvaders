@@ -16,8 +16,10 @@ function draw() {
 function keyPressed(){
     if(keyCode === RIGHT_ARROW){
         ship.move(RIGHT);
-    }
-    if(keyCode === LEFT_ARROW){
+    } else if(keyCode === LEFT_ARROW){
         ship.move(LEFT);
+    } else if(keyCode === 32){ //space
+        var bullet = ship.shoot();
+        world.bullets.push(bullet);
     }
 }
