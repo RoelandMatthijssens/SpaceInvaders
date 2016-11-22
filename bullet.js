@@ -28,7 +28,7 @@ function Bullet(x, y, size){
     };
 
     this.deleteIfOutOfBound = function deleteIfOutOfBound(width, height){
-        if(this.x > width || this.x < 0 || this.y > width || this.y < 0)
+        if(this.x > width || this.x < 0 || this.y > height || this.y < 0)
             this.delete();
     };
 
@@ -47,9 +47,8 @@ function Bullet(x, y, size){
     };
 
     this.update = function update(world){
-        this.show();
         this.move();
-        this.deleteIfOutOfBound(world.height, world.width)
+        this.deleteIfOutOfBound(world.width, world.height)
         this.destroyAliens(world.aliens);
     };
 }

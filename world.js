@@ -4,11 +4,22 @@ function World(height, width, scl){
     this.scl = scl;
     this.aliens = [];
     this.bullets = [];
+    this.gameSpeed = 1;
+    this.aliensPerRow = floor(this.width*0.7 / (this.scl+5)); // fill about 3/4th of the screen
+    this.alienRows = 1;
 
-    this.populateAliens = function populateAliens(amount){
+    this.populateAliens = function populateAliens(){
+        var heightOffset = 0;
+        for(var i = 0; i < this.alienRows; i++){
+            this.populateAlienRow(heightOffset, this.aliensPerRow);
+            heightOffset += this.scl + 5;
+        }
+    };
+
+    this.populateAlienRow = function populateAlienRow(heightOffset, amount){
         var offset = 0;
         while(amount > 0){
-            var alien = new Alien(100+offset, 100, this.scl);
+            var alien = new Alien(offset, heightOffset, this.scl, this.gameSpeed);
             this.aliens.push(alien);
             amount--;
             offset += this.scl + 5;
@@ -20,14 +31,44 @@ function World(height, width, scl){
         return this.ship
     };
 
-    this.show = function(){
+    this.update = function update(){
         var self = this;
         this.removeDeletedEntities();
         var hitSide = this.aliens.filter(function(i){
-                return i.outOfBound(this.width, this.height)
+                return i.outOfBound(self.width, self.height)
             }).length > 0;
         this.aliens.map(function(i){i.update(hitSide)});
         this.bullets.map(function(i){i.update(self)});
+
+        if(this.won()){
+            console.log('WON');
+            this.gameSpeed+=2;
+            this.alienRows += 1;
+            this.populateAliens();
+        }
+        if(this.lost()){
+            console.log('GAME OVER');
+            this.gameSpeed = 1;
+            this.alienRows = 1;
+            this.aliens = [];
+            this.populateAliens()
+        }
+    };
+
+    this.won = function won(){
+        return this.aliens.length === 0;
+    };
+
+    this.lost = function lost(){
+        var self = this;
+        return this.aliens.filter(function(i){
+                return i.y > self.height;
+            }).length > 0
+    };
+
+    this.show = function(){
+        this.aliens.map(function(i){i.show()});
+        this.bullets.map(function(i){i.show()});
         this.ship.show();
     };
 

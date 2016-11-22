@@ -1,18 +1,19 @@
 var world;
 function setup() {
-    var height = 500;
-    var width = 500;
-    createCanvas(height, width);
+    var width = 700;
+    var height = 400;
+    createCanvas(width, height);
     world = new World(height, width, 20);
     ship = world.createShip();
     ship.setBoundaries(0, width);
-    world.populateAliens(10);
+    world.populateAliens();
     frameRate(60);
 }
 
 function draw() {
     background(51);
     checkInput();
+    world.update();
     world.show();
 }
 

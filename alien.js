@@ -1,10 +1,10 @@
-function Alien(x, y, size){
+function Alien(x, y, size, speed){
     this.x = x;
     this.y = y;
     this.size = size;
     this.toDelete = false;
     this.direction = RIGHT;
-    this.speed = 5;
+    this.speed = speed;
 
     this.show = function(){
         fill(255, 0, 255);
@@ -34,11 +34,9 @@ function Alien(x, y, size){
             this.shiftDown();
         }
         this.move();
-        this.show();
     };
 
     this.outOfBound = function outOfBound(width, height){
-        return this.x+this.size > width || this.x < 0 ||
-            this.y+this.size > height || this.y < 0
+        return this.x+this.size > width || this.x < 0
     }
 }
