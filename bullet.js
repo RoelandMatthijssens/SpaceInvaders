@@ -4,6 +4,7 @@ function Bullet(x, y, size){
     this.xspeed = 0;
     this.yspeed = -5; //negative value moves up
     this.size = size/3;
+    this.toDelete = false;
 
     this.show = function(){
         noStroke();
@@ -25,4 +26,13 @@ function Bullet(x, y, size){
             );
         })
     };
-}
+
+    this.outOfBound = function outOfBound(width, height){
+        return this.x > width || this.x < 0 || this.y > width || this.y < 0
+    };
+
+    this.delete = function del(){
+        console.log('deleted');
+        this.toDelete = true;
+    };
+};

@@ -21,6 +21,7 @@ function World(height, width, scl){
     };
 
     this.show = function(){
+        this.bullets = this.bullets.filter(function(i){return !i.toDelete});
         for(var index in this.aliens){
             var alien = this.aliens[index];
             alien.show();
@@ -29,12 +30,12 @@ function World(height, width, scl){
             var bullet = this.bullets[index];
             bullet.show();
             bullet.move();
-            //remove the bullet from the world if it goes out of bound
-            if (bullet.x > this.width || bullet.x < 0 || bullet.y > this.width || bullet.y < 0) {
-                this.bullets.splice(index, 1);
+            if(bullet.outOfBound(this.height, this.width)){
+                bullet.delete();
             }
             var colidedAliens = bullet.checkCollision(this.aliens);
             if(colidedAliens.length > 0){
+                bullet.delete();
                 console.log("hit", colidedAliens);
             }
         }
