@@ -23,7 +23,10 @@ function World(height, width, scl){
     this.show = function(){
         var self = this;
         this.removeDeletedEntities();
-        this.aliens.map(function(i){i.show()});
+        var hitSide = this.aliens.filter(function(i){
+                return i.outOfBound(this.width, this.height)
+            }).length > 0;
+        this.aliens.map(function(i){i.update(hitSide)});
         this.bullets.map(function(i){i.update(self)});
         this.ship.show();
     };
