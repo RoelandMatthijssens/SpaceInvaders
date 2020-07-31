@@ -24,10 +24,14 @@ function checkInput(){
     if(keyIsDown(LEFT_ARROW)){
         ship.move(LEFT);
     }
-}
-function keyPressed(){
-    if(keyCode === 32){ //space
+    if(keyIsDown(32)){ //space
         var bullet = ship.shoot();
         world.bullets.push(bullet);
     }
 }
+// function keyPressed(){
+//     if(keyCode === 32){ //space
+//         var bullet = ship.shoot();
+//         world.bullets.push(bullet);
+//     }
+// }
